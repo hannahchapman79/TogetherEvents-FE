@@ -1,1 +1,1 @@
-# TogetherEvents-FE
+# Together Events Frontend

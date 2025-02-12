@@ -1,9 +1,9 @@
 export interface User {
-    _id: string; 
-    username: string;
-    name: string;
-    email: string;
-    isAdmin: boolean;
-    eventsAttended: string[]; 
-    createdAt: Date;
-  }
+  user_id: string;  
+  username: string;
+  email: string;
+  isAdmin: boolean;
+  name?: string;
+  eventsAttended?: string[];
+  createdAt?: Date;
+}

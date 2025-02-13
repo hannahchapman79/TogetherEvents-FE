@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { AuthProvider } from '@/context/AuthContext'
-import { Inter } from 'next/font/google'
+import { AuthProvider } from "@/context/AuthContext";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Together Events",
-  description: "Discover, sign up, and manage events effortlessly. Stay connected with your community and sync events to your Google Calendar with ease.",
+  description:
+    "Discover, sign up, and manage events effortlessly. Stay connected with your community and sync events to your Google Calendar with ease.",
 };
 
 export default function RootLayout({
@@ -18,10 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
-  )
+  );
 }

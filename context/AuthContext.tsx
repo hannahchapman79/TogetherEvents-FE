@@ -21,7 +21,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const refreshAccessToken = async () => {
     try {
-      const response = await axios.post(`${process.env.API_URL}/auth/refresh`, {}, { withCredentials: true });
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, {}, { withCredentials: true });
       return response.data.accessToken;
     } catch (error) {
       console.error('Failed to refresh token:', error);
@@ -40,13 +40,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get(`${process.env.API_URL}/auth/me`, { withCredentials: true });
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, { withCredentials: true });
         setUser(response.data.user);
       } catch (error) {
         const newToken = await refreshAccessToken(); 
         if (newToken) {
           try {
-            const response = await axios.get(`${process.env.API_URL}/auth/me`, { 
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, { 
               withCredentials: true, 
               headers: { Authorization: `Bearer ${newToken}` } 
             });
@@ -98,7 +98,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (email: string, password: string) => {
     try {
-      const response = await axios.post(`${process.env.API_URL}/auth/login`, { email, password }, { withCredentials: true });
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, { email, password }, { withCredentials: true });
       setUser(response.data.user);
       router.push('/events');
     } catch (error) {
@@ -108,7 +108,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
-      await axios.post(`${process.env.API_URL}/auth/logout`, {}, { withCredentials: true });
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`, {}, { withCredentials: true });
     } catch (error) {
       console.error('Logout failed:', error);
     }

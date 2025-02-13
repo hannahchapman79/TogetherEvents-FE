@@ -16,11 +16,10 @@ export default function Navbar() {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center space-x-3">
           <Image 
-            src="/te-logo.png" 
+            src="/fullsize-logo.png" 
             alt="Logo" 
-            width={32} 
-            height={32} 
-            className="w-10 h-10"
+            width={260} 
+            height={140} 
           />
           <span className="self-center text-2xl font-semibold whitespace-nowrap text-[#735751] md:text-3xl">
           </span>

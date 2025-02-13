@@ -1,9 +1,9 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
-import { useRouter, usePathname } from 'next/navigation';
-import { User } from '@/types/user';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import axios from "axios";
+import { useRouter, usePathname } from "next/navigation";
+import { User } from "@/types/user";
 
 interface AuthContextType {
   user: User | null;
@@ -39,7 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       );
       return response.data.accessToken;
     } catch (error) {
-      console.error('Failed to refresh token:', error);
+      console.error("Failed to refresh token:", error);
       setUser(null);
       return null;
     }

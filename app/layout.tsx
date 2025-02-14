@@ -25,7 +25,7 @@ export default function RootLayout({
         <main className="flex-1 pt-16">
           <AuthProvider>{children}</AuthProvider>
         </main>
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

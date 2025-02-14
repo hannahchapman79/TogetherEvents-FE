@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,14 +15,8 @@ export default function Navbar() {
     <nav className="bg-secondary shadow-md border-b border-[#a78a7f] fixed top-0 left-0 w-full z-50">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center space-x-3">
-          <Image 
-            src="/fullsize-logo.png" 
-            alt="Logo" 
-            width={260} 
-            height={140} 
-          />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap text-[#735751] md:text-3xl">
-          </span>
+          <Image src="/fullsize-logo.png" alt="Logo" width={260} height={140} />
+          <span className="self-center text-2xl font-semibold whitespace-nowrap text-[#735751] md:text-3xl"></span>
         </Link>
 
         <button
@@ -33,62 +27,73 @@ export default function Navbar() {
           aria-expanded={isOpen}
         >
           <span className="sr-only">Open main menu</span>
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 17 14" xmlns="http://www.w3.org/2000/svg">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 17 14"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M1 1h15M1 7h15M1 13h15"
+            />
           </svg>
         </button>
 
-        <div 
+        <div
           className={`${
             isOpen ? "block" : "hidden"
-          } w-full md:block md:w-auto transition-all duration-200 ease-in-out`} 
+          } w-full md:block md:w-auto transition-all duration-200 ease-in-out`}
           id="navbar-default"
         >
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg bg-[#e7d7c1] md:bg-transparent md:flex-row md:space-x-8 md:mt-0 md:items-center">
             <li className="mb-4 md:mb-0">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className={`block py-2 px-3 rounded md:p-0 text-lg md:text-xl ${
-                  isActive('/') 
-                    ? 'text-[#9e2a2b] font-semibold' 
-                    : 'text-[#735751] hover:text-[#bf4342]'
+                  isActive("/")
+                    ? "text-[#9e2a2b] font-semibold"
+                    : "text-[#735751] hover:text-[#bf4342]"
                 }`}
               >
                 Home
               </Link>
             </li>
             <li className="mb-4 md:mb-0">
-              <Link 
-                href="/events" 
+              <Link
+                href="/events"
                 className={`block py-2 px-3 rounded md:p-0 text-lg md:text-xl ${
-                  isActive('/events')
-                    ? 'text-[#9e2a2b] font-semibold'
-                    : 'text-[#735751] hover:text-[#bf4342]'
+                  isActive("/events")
+                    ? "text-[#9e2a2b] font-semibold"
+                    : "text-[#735751] hover:text-[#bf4342]"
                 }`}
               >
                 Events
               </Link>
             </li>
             <li className="mb-4 md:mb-0">
-              <Link 
+              <Link
                 href="/login"
                 className={`block py-2 px-3 rounded md:p-0 text-lg md:text-xl ${
-                    isActive('/login') 
-                      ? 'text-[#9e2a2b] font-semibold' 
-                      : 'text-[#735751] hover:text-[#bf4342]'
-                  }`}
+                  isActive("/login")
+                    ? "text-[#9e2a2b] font-semibold"
+                    : "text-[#735751] hover:text-[#bf4342]"
+                }`}
               >
                 Login
               </Link>
             </li>
             <li className="mb-4 md:mb-0">
-              <Link 
+              <Link
                 href="/signup"
                 className={`block py-2 px-3 rounded md:p-0 text-lg md:text-xl ${
-                    isActive('/signup') 
-                      ? 'text-[#9e2a2b] font-semibold' 
-                      : 'text-[#735751] hover:text-[#bf4342]'
-                  }`}
+                  isActive("/signup")
+                    ? "text-[#9e2a2b] font-semibold"
+                    : "text-[#735751] hover:text-[#bf4342]"
+                }`}
               >
                 Sign up
               </Link>

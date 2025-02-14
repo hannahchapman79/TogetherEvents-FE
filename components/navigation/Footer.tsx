@@ -10,16 +10,24 @@ export default function Footer() {
         </Link>
         <ul className="flex space-x-6 text-lg">
           <li>
-            <Link href="/" className="hover:text-[#bf4342]">Home</Link>
+            <Link href="/" className="hover:text-[#bf4342]">
+              Home
+            </Link>
           </li>
           <li>
-            <Link href="/events" className="hover:text-[#bf4342]">Events</Link>
+            <Link href="/events" className="hover:text-[#bf4342]">
+              Events
+            </Link>
           </li>
           <li>
-            <Link href="/login" className="hover:text-[#bf4342]">Login</Link>
+            <Link href="/login" className="hover:text-[#bf4342]">
+              Login
+            </Link>
           </li>
           <li>
-            <Link href="/signup" className="hover:text-[#bf4342]">Sign up</Link>
+            <Link href="/signup" className="hover:text-[#bf4342]">
+              Sign up
+            </Link>
           </li>
         </ul>
       </div>

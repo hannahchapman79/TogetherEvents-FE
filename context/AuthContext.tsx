@@ -20,6 +20,7 @@ const AUTH_ROUTES = ["/login", "/signup"];
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
   const router = useRouter();
   const pathname = usePathname();
 
@@ -37,34 +38,45 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           withCredentials: true,
         },
       );
-      return response.data.accessToken;
+      const newToken = response.data.accessToken;
+      setAccessToken(newToken);
+      return newToken;
     } catch (error) {
       console.error("Failed to refresh token:", error);
       setUser(null);
+      setAccessToken(null);
       return null;
     }
   };
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      if (!isProtectedRoute && !user) {
-        setLoading(false);
-        return;
+  const checkAuth = async () => {
+    if (!isProtectedRoute && !user) {
+      setLoading(false);
+      return;
+    }
+
+    if (user && accessToken) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
+        {
+          withCredentials: true,
+          headers: accessToken
+            ? { Authorization: `Bearer ${accessToken}` }
+            : undefined,
+        },
+      );
+      setUser(response.data.user);
+
+      if (isAuthRoute) {
+        router.push("/events");
       }
-
-      try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
-          {
-            withCredentials: true,
-          },
-        );
-        setUser(response.data.user);
-
-        if (isAuthRoute) {
-          router.push("/events");
-        }
-      } catch (error) {
+    } catch (error) {
+      if (user) {
         const newToken = await refreshAccessToken();
         if (newToken) {
           try {
@@ -82,16 +94,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         } else if (isProtectedRoute) {
           handleAuthFailure();
         }
-      } finally {
-        setLoading(false);
+      } else if (isProtectedRoute) {
+        handleAuthFailure();
       }
-    };
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     checkAuth();
   }, [pathname]);
 
   const handleAuthFailure = () => {
     setUser(null);
+    setAccessToken(null);
     if (isProtectedRoute) {
       router.push("/login");
     }
@@ -126,9 +143,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
         { email, password },
-        { withCredentials: true },
       );
       setUser(response.data.user);
+      setAccessToken(response.data.accessToken);
       router.push("/events");
     } catch (error) {
       throw new Error("Login failed");
@@ -146,6 +163,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.error("Logout failed:", error);
     }
     setUser(null);
+    setAccessToken(null);
     router.push("/login");
   };
 

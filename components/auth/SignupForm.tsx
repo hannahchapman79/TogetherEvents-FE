@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp } from "@/lib/actions/signup";
 import { useAuth } from "@/context/AuthContext";
+import axios from "axios";
 
 export function SignupForm() {
   const router = useRouter();
@@ -22,13 +23,18 @@ export function SignupForm() {
 
     try {
       await signUp(name, username, email, password, isAdmin);
-
       await login(email, password);
-
       router.push("/");
     } catch (error) {
-      console.error("Error during signup/login:", error);
-      setError("Signup failed. Please try again.");
+      if (axios.isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.message || "Signup failed. Please try again.";
+        setError(errorMessage);
+
+        console.log("Signup error response:", error.response?.data);
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
     }
   };
 
@@ -93,7 +99,14 @@ export function SignupForm() {
           Admin
         </label>
       </div>
-      {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+      {error && (
+        <div
+          className="p-4 mb-5 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+          role="alert"
+        >
+          {error}
+        </div>
+      )}
       <button
         className="text-white bg-accent-3 hover:bg-accent-3-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         type="submit"

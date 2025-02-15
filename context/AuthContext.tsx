@@ -148,7 +148,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setAccessToken(response.data.accessToken);
       router.push("/events");
     } catch (error) {
-      throw new Error("Login failed");
+      throw error;
     }
   };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import EventCard from "./EventCard";
-import Event from "../../types/event"
+import Event from "../../types/event";
 
 interface EventsListProps {
   events: Event[];
@@ -16,7 +16,7 @@ export default function EventsList({ events }: EventsListProps) {
           id={event._id}
           name={event.title}
           startDate={new Date(event.startDate).toLocaleDateString()}
-          image={event.image} 
+          image={event.image}
           category={event.category}
           location={event.location.type}
         />

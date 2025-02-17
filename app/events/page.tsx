@@ -1,9 +1,11 @@
 import EventsList from "@/components/events/EventsList";
 
 async function getEvents() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events`, { cache: "no-store" });
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/events`, {
+    cache: "no-store",
+  });
   const data = await response.json();
-  return data; 
+  return data;
 }
 
 export default async function EventsPage() {

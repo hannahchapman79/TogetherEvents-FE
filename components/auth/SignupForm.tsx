@@ -95,9 +95,7 @@ export function SignupForm() {
             onChange={(e) => setIsAdmin(e.target.checked)}
           />
         </div>
-        <label className="ms-2 text-sm font-medium text-gray-900">
-          Admin
-        </label>
+        <label className="ms-2 text-sm font-medium text-gray-900">Admin</label>
       </div>
       {error && (
         <div

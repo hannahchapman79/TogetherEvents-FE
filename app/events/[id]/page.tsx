@@ -16,7 +16,7 @@ export default async function EventPage({
       `${process.env.NEXT_PUBLIC_API_URL}/events/${id}`,
       {
         cache: "no-store",
-      }
+      },
     );
 
     if (!response.ok) {

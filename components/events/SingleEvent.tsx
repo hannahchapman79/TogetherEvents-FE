@@ -13,7 +13,7 @@ export default function SingleEvent({ event }: SingleEventProps) {
       <p className="text-sm text-gray-500 mt-4">
         Date: {new Date(event.startDate).toLocaleDateString()}
       </p>
-      <GoogleCalendarButton event={event}/>
+      <GoogleCalendarButton event={event} />
     </div>
   );
 }

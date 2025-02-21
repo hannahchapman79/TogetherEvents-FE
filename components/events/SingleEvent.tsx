@@ -1,5 +1,6 @@
 import Event from "@/types/event";
 import GoogleCalendarButton from "./AddToCalendarButton";
+import AttendEventButton from "./AttendEventButton";
 
 interface SingleEventProps {
   event: Event;
@@ -14,6 +15,7 @@ export default function SingleEvent({ event }: SingleEventProps) {
         Date: {new Date(event.startDate).toLocaleDateString()}
       </p>
       <GoogleCalendarButton event={event} />
+      <AttendEventButton eventId={event._id} />
     </div>
   );
 }

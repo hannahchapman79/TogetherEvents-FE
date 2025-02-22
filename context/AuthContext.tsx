@@ -26,7 +26,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   const isProtectedRoute = PROTECTED_ROUTES.some((route) =>
-    pathname?.startsWith(route),
+    pathname?.startsWith(route)
   );
   const isAuthRoute = AUTH_ROUTES.some((route) => pathname?.startsWith(route));
 
@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         {},
         {
           withCredentials: true,
-        },
+        }
       );
       const newToken = response.data.accessToken;
       setAccessToken(newToken);
@@ -51,11 +51,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const checkAuth = async () => {
+    // Skip auth check if not on protected route and no user exists
     if (!isProtectedRoute && !user) {
       setLoading(false);
       return;
     }
 
+    // If we have a user and token, just finish loading
     if (user && accessToken) {
       setLoading(false);
       return;
@@ -69,7 +71,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           headers: accessToken
             ? { Authorization: `Bearer ${accessToken}` }
             : undefined,
-        },
+        }
       );
       setUser(response.data.user);
 
@@ -77,6 +79,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         router.push("/events");
       }
     } catch (error) {
+      // Only try refresh if we had a user before
       if (user) {
         const newToken = await refreshAccessToken();
         if (newToken) {
@@ -86,11 +89,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               {
                 withCredentials: true,
                 headers: { Authorization: `Bearer ${newToken}` },
-              },
+              }
             );
             setUser(response.data.user);
           } catch {
-            handleAuthFailure();
+            // Only redirect on protected routes
+            if (isProtectedRoute) {
+              handleAuthFailure();
+            }
           }
         } else if (isProtectedRoute) {
           handleAuthFailure();
@@ -108,9 +114,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [pathname]);
 
   const handleAuthFailure = () => {
-    setUser(null);
-    setAccessToken(null);
     if (isProtectedRoute) {
+      setUser(null);
+      setAccessToken(null);
       router.push("/login");
     }
   };
@@ -119,7 +125,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const interceptor = axios.interceptors.response.use(
       (response) => response,
       async (error) => {
-        if (error.response?.status === 401 && !error.config._retry) {
+        if (
+          error.response?.status === 401 &&
+          !error.config._retry &&
+          (isProtectedRoute || user)
+        ) {
           error.config._retry = true;
           const newToken = await refreshAccessToken();
 
@@ -133,7 +143,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           }
         }
         return Promise.reject(error);
-      },
+      }
     );
 
     return () => axios.interceptors.response.eject(interceptor);
@@ -144,6 +154,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
         { email, password },
+        { withCredentials: true }  // Added withCredentials
       );
       setUser(response.data.user);
       setAccessToken(response.data.accessToken);
@@ -158,7 +169,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
         {},
-        { withCredentials: true },
+        { withCredentials: true }
       );
     } catch (error) {
       console.error("Logout failed:", error);

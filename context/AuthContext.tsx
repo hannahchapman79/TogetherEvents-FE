@@ -26,7 +26,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   const isProtectedRoute = PROTECTED_ROUTES.some((route) =>
-    pathname?.startsWith(route)
+    pathname?.startsWith(route),
   );
   const isAuthRoute = AUTH_ROUTES.some((route) => pathname?.startsWith(route));
 
@@ -37,7 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         {},
         {
           withCredentials: true,
-        }
+        },
       );
       const newToken = response.data.accessToken;
       setAccessToken(newToken);
@@ -71,7 +71,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           headers: accessToken
             ? { Authorization: `Bearer ${accessToken}` }
             : undefined,
-        }
+        },
       );
       setUser(response.data.user);
 
@@ -89,7 +89,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               {
                 withCredentials: true,
                 headers: { Authorization: `Bearer ${newToken}` },
-              }
+              },
             );
             setUser(response.data.user);
           } catch {
@@ -143,7 +143,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           }
         }
         return Promise.reject(error);
-      }
+      },
     );
 
     return () => axios.interceptors.response.eject(interceptor);
@@ -154,7 +154,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
         { email, password },
-        { withCredentials: true }  // Added withCredentials
+        { withCredentials: true }, // Added withCredentials
       );
       setUser(response.data.user);
       setAccessToken(response.data.accessToken);
@@ -169,7 +169,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/logout`,
         {},
-        { withCredentials: true }
+        { withCredentials: true },
       );
     } catch (error) {
       console.error("Logout failed:", error);

@@ -8,7 +8,7 @@ import axios from "axios";
 const initialFormData = {
   title: "",
   description: "",
-  startDate: "", 
+  startDate: "",
   endDate: "",
   locationType: "physical",
   address: "",
@@ -25,7 +25,11 @@ export function CreateEventForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -35,29 +39,33 @@ export function CreateEventForm() {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-  
+
     if (!user?.isAdmin) {
       setError("Only admins can create events");
       return;
     }
-  
+
     setLoading(true);
     setError(null);
-  
+
     const location = {
       type: formData.locationType,
-      address: formData.locationType === "physical" ? formData.address : undefined,
-      onlineLink: formData.locationType === "online" || formData.locationType === "hybrid" ? formData.onlineLink : undefined,
+      address:
+        formData.locationType === "physical" ? formData.address : undefined,
+      onlineLink:
+        formData.locationType === "online" || formData.locationType === "hybrid"
+          ? formData.onlineLink
+          : undefined,
     };
-  
+
     const eventData = {
       ...formData,
-      startDate: new Date(formData.startDate), 
+      startDate: new Date(formData.startDate),
       endDate: formData.endDate ? new Date(formData.endDate) : null,
-      organiser: user.user_id, 
-      location, 
+      organiser: user.user_id,
+      location,
     };
-  
+
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/events`,
@@ -66,11 +74,14 @@ export function CreateEventForm() {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       );
-      router.push("/events"); 
+      router.push("/events");
     } catch (error) {
-      setError(error.response?.data?.message || "Failed to create event. Please try again.");
+      setError(
+        error.response?.data?.message ||
+          "Failed to create event. Please try again.",
+      );
     } finally {
       setLoading(false);
     }
@@ -142,7 +153,8 @@ export function CreateEventForm() {
           </select>
         </div>
 
-        {(formData.locationType === "online" || formData.locationType === "hybrid") && (
+        {(formData.locationType === "online" ||
+          formData.locationType === "hybrid") && (
           <div>
             <label className="block mb-1">Online Link</label>
             <input

@@ -6,12 +6,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {
-
   const closeNavbar = () => {
-    const navbarToggler = document.querySelector('.navbar-toggler') as HTMLElement | null;
+    const navbarToggler = document.querySelector(
+      ".navbar-toggler",
+    ) as HTMLElement | null;
     if (!navbarToggler) return;
-  
-    const isExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
+
+    const isExpanded = navbarToggler.getAttribute("aria-expanded") === "true";
     if (isExpanded) {
       navbarToggler.click();
     }
@@ -25,7 +26,11 @@ export default function Navbar() {
   return (
     <nav className="bg-secondary shadow-md border-b border-[#a78a7f] fixed top-0 left-0 w-full z-50">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <Link onClick={closeNavbar} href="/" className="flex items-center space-x-3">
+        <Link
+          onClick={closeNavbar}
+          href="/"
+          className="flex items-center space-x-3"
+        >
           <Image src="/fullsize-logo.png" alt="Logo" width={260} height={140} />
           <span className="self-center text-2xl font-semibold whitespace-nowrap text-[#735751] md:text-3xl"></span>
         </Link>
@@ -63,7 +68,7 @@ export default function Navbar() {
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg bg-[#e7d7c1] md:bg-transparent md:flex-row md:space-x-8 md:mt-0 md:items-center">
             <li className="mb-4 md:mb-0">
               <Link
-              onClick={closeNavbar}
+                onClick={closeNavbar}
                 href="/"
                 className={`block py-2 px-3 rounded md:p-0 text-lg md:text-xl ${
                   isActive("/")
@@ -76,7 +81,7 @@ export default function Navbar() {
             </li>
             <li className="mb-4 md:mb-0">
               <Link
-              onClick={closeNavbar}
+                onClick={closeNavbar}
                 href="/events"
                 className={`block py-2 px-3 rounded md:p-0 text-lg md:text-xl ${
                   isActive("/events")
@@ -89,7 +94,7 @@ export default function Navbar() {
             </li>
             <li className="mb-4 md:mb-0">
               <Link
-              onClick={closeNavbar}
+                onClick={closeNavbar}
                 href="/login"
                 className={`block py-2 px-3 rounded md:p-0 text-lg md:text-xl ${
                   isActive("/login")
@@ -102,7 +107,7 @@ export default function Navbar() {
             </li>
             <li className="mb-4 md:mb-0">
               <Link
-              onClick={closeNavbar}
+                onClick={closeNavbar}
                 href="/signup"
                 className={`block py-2 px-3 rounded md:p-0 text-lg md:text-xl ${
                   isActive("/signup")

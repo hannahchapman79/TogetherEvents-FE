@@ -14,7 +14,7 @@ export default async function EventsPage() {
 
   return (
     <div className="container mx-auto px-4 mt-16">
-          <AddEventButton/>
+      <AddEventButton />
       <h1 className="text-3xl font-bold text-center my-6">Events</h1>
       {Array.isArray(events) && events.length > 0 ? (
         <EventsList events={events} />

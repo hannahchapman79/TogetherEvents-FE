@@ -24,7 +24,7 @@ export default function Navbar() {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <nav className="bg-secondary shadow-md border-b border-[#a78a7f] fixed top-0 left-0 w-full z-50">
+    <nav className="bg-white shadow-sm fixed top-0 left-0 w-full z-50">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link
           onClick={closeNavbar}

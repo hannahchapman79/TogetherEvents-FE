@@ -79,7 +79,6 @@ export function CreateEventForm() {
       router.push("/events");
     } catch (error) {
       setError(
-        error.response?.data?.message ||
           "Failed to create event. Please try again.",
       );
     } finally {

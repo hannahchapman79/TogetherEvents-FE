@@ -7,7 +7,7 @@ export default function Page() {
   return (
     <main className="flex flex-col items-center justify-between min-h-screen w-full px-4 py-12 md:py-16">
       <div className="max-w-6xl w-full mx-auto">
-        <HeroBanner/>
+        <HeroBanner />
         <div className="flex flex-col items-center text-center mb-16">
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
             <Link
@@ -24,12 +24,12 @@ export default function Page() {
             </Link>
           </div>
         </div>
-        
+
         <div className="mb-16">
           <CategoryCircles />
         </div>
-        
-        <DiscoverBlocks/>
+
+        <DiscoverBlocks />
       </div>
     </main>
   );

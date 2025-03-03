@@ -14,6 +14,7 @@ const initialFormData = {
   address: "",
   onlineLink: "",
   category: "",
+  imageUrl: "", 
   maxAttendees: "",
   status: "draft",
 };
@@ -78,73 +79,71 @@ export function CreateEventForm() {
       );
       router.push("/events");
     } catch (error) {
-      setError(
-          "Failed to create event. Please try again.",
-      );
+      setError("Failed to create event. Please try again.");
     } finally {
       setLoading(false);
     }
   };
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">Create New Event</h1>
+      <h1 className="text-3xl font-bold text-center my-6 mt-12">Create New Event</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block mb-1">Title *</label>
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto pt-4">
+        <div className="mb-5">
+          <label className="block mb-2 text-sm font-medium text-gray-900">Title *</label>
           <input
             type="text"
             name="title"
             value={formData.title}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
         </div>
 
-        <div>
-          <label className="block mb-1">Description *</label>
+        <div className="mb-5">
+          <label className="block mb-2 text-sm font-medium text-gray-900">Description *</label>
           <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
             required
             rows={4}
-            className="w-full p-2 border rounded"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
         </div>
 
-        <div>
-          <label className="block mb-1">Start Date *</label>
+        <div className="mb-5">
+          <label className="block mb-2 text-sm font-medium text-gray-900">Start Date *</label>
           <input
             type="datetime-local"
             name="startDate"
             value={formData.startDate}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
         </div>
 
-        <div>
-          <label className="block mb-1">End Date</label>
+        <div className="mb-5">
+          <label className="block mb-2 text-sm font-medium text-gray-900">End Date</label>
           <input
             type="datetime-local"
             name="endDate"
             value={formData.endDate}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
         </div>
 
-        <div>
-          <label className="block mb-1">Location Type *</label>
+        <div className="mb-5">
+          <label className="block mb-2 text-sm font-medium text-gray-900">Location Type *</label>
           <select
             name="locationType"
             value={formData.locationType}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           >
             <option value="physical">Physical</option>
             <option value="online">Online</option>
@@ -154,50 +153,61 @@ export function CreateEventForm() {
 
         {(formData.locationType === "online" ||
           formData.locationType === "hybrid") && (
-          <div>
-            <label className="block mb-1">Online Link</label>
+          <div className="mb-5">
+            <label className="block mb-2 text-sm font-medium text-gray-900">Online Link</label>
             <input
               type="url"
               name="onlineLink"
               value={formData.onlineLink}
               onChange={handleChange}
-              className="w-full p-2 border rounded"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             />
           </div>
         )}
 
-        <div>
-          <label className="block mb-1">Category *</label>
+        <div className="mb-5">
+          <label className="block mb-2 text-sm font-medium text-gray-900">Category *</label>
           <input
             type="text"
             name="category"
             value={formData.category}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          />
+        </div>
+        <div className="mb-5">
+          <label className="block mb-2 text-sm font-medium text-gray-900">Image URL</label>
+          <input
+            type="text"
+            name="image url"
+            value={formData.imageUrl}
+            onChange={handleChange}
+            required
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
         </div>
 
-        <div>
-          <label className="block mb-1">Max Attendees</label>
+        <div className="mb-5">
+          <label className="block mb-2 text-sm font-medium text-gray-900">Max Attendees</label>
           <input
             type="number"
             name="maxAttendees"
             value={formData.maxAttendees}
             onChange={handleChange}
             min="1"
-            className="w-full p-2 border rounded"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
         </div>
 
-        <div>
-          <label className="block mb-1">Status *</label>
+        <div className="mb-5">
+          <label className="block mb-2 text-sm font-medium text-gray-900">Status *</label>
           <select
             name="status"
             value={formData.status}
             onChange={handleChange}
             required
-            className="w-full p-2 border rounded"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           >
             <option value="draft">Draft</option>
             <option value="published">Published</option>
@@ -213,7 +223,7 @@ export function CreateEventForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 disabled:bg-gray-400"
+          className="text-white bg-accent-3 hover:bg-accent-3-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
         >
           {loading ? "Creating..." : "Create Event"}
         </button>

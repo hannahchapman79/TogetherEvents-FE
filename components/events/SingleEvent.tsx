@@ -1,6 +1,7 @@
 import Event from "@/types/event";
 import GoogleCalendarButton from "./AddToCalendarButton";
 import AttendEventButton from "./AttendEventButton";
+import EditEventButton from "./admin/EditEventButton";
 
 interface SingleEventProps {
   event: Event;
@@ -16,6 +17,7 @@ export default function SingleEvent({ event }: SingleEventProps) {
       </p>
       <GoogleCalendarButton event={event} />
       <AttendEventButton eventId={event._id} />
+      <EditEventButton eventId={event._id}/>
     </div>
   );
 }

@@ -15,11 +15,11 @@ interface EventCardProps {
 const categoryImages: Record<string, string> = {
   "Arts & Creativity": "/arts.jpg",
   "Book Club": "/books.jpg",
-  "Networking": "/networking.jpg",
-  "Entertainment": "/entertainment.jpg",
+  Networking: "/networking.jpg",
+  Entertainment: "/entertainment.jpg",
   "Health & Wellness": "/wellness.jpg",
   "Outdoors & Adventure": "/outdoors.jpg",
-  "Education": "education.jpg",
+  Education: "education.jpg",
 };
 
 export default function EventCard({

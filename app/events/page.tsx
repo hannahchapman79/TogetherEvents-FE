@@ -1,5 +1,5 @@
 import EventsList from "@/components/events/EventsList";
-import AddEventButton from "@/components/events/AddEventButton";
+import AddEventButton from "@/components/events/admin/AddEventButton";
 
 async function getEvents(category?: string) {
   const url = new URL(`${process.env.NEXT_PUBLIC_API_URL}/events`);
@@ -23,11 +23,12 @@ export default async function EventsPage({
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const params = await searchParams;
-  const category = typeof params?.category === 'string' ? params.category : '';
+  const category = typeof params?.category === "string" ? params.category : "";
 
-  const formattedCategory =
-    category ? category.charAt(0).toUpperCase() + category.slice(1) : "";
-  
+  const formattedCategory = category
+    ? category.charAt(0).toUpperCase() + category.slice(1)
+    : "";
+
   const { events } = await getEvents(category);
 
   return (

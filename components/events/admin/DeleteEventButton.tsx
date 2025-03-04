@@ -49,7 +49,7 @@ export default function DeleteEventButton({ eventId }: { eventId: string }) {
           loading ? "opacity-50 cursor-not-allowed" : ""
         }`}
       >
-        <MdDeleteOutline className="w-5 h-5"/>
+        <MdDeleteOutline className="w-5 h-5" />
         {loading ? "Deleting..." : <>Delete Event</>}
       </button>
     </div>

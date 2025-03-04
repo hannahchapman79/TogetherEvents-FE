@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
+import { CiEdit } from "react-icons/ci";
 
 export default function EditEventButton({ eventId }: { eventId: string }) {
   const { user } = useAuth();
@@ -13,21 +14,8 @@ export default function EditEventButton({ eventId }: { eventId: string }) {
   return (
     <>
       <Link href={`edit/${eventId}`}>
-        <button className="fixed bottom-4 right-4 bg-accent-3 hover:bg-accent-3-hover text-white font-medium rounded-full p-4 shadow-lg flex items-center justify-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
+        <button className="mt-4 flex items-center gap-2 text-white bg-accent-3 hover:bg-accent-3-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+        <CiEdit className="w-5 h-5" />
           Edit Event
         </button>
       </Link>

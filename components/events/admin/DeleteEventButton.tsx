@@ -3,6 +3,7 @@
 import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { MdDeleteOutline } from "react-icons/md";
 import axios from "axios";
 
 export default function DeleteEventButton({ eventId }: { eventId: string }) {
@@ -44,10 +45,11 @@ export default function DeleteEventButton({ eventId }: { eventId: string }) {
       <button
         onClick={deleteEvent}
         disabled={loading}
-        className={`mt-4 text-white bg-accent-3 hover:bg-accent-3-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center" ${
+        className={`mt-4 flex items-center gap-2 text-white bg-accent-3 hover:bg-accent-3-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center" ${
           loading ? "opacity-50 cursor-not-allowed" : ""
         }`}
       >
+        <MdDeleteOutline className="w-5 h-5"/>
         {loading ? "Deleting..." : <>Delete Event</>}
       </button>
     </div>

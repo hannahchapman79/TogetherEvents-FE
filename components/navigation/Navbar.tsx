@@ -9,7 +9,7 @@ import Avatar from "./Avatar";
 
 export default function Navbar() {
   const { user } = useAuth();
-  
+
   const closeNavbar = () => {
     const navbarToggler = document.querySelector(
       ".navbar-toggler",
@@ -95,7 +95,6 @@ export default function Navbar() {
                 Events
               </Link>
             </li>
-
 
             {user ? (
               <li className="mb-4 md:mb-0 flex items-center">

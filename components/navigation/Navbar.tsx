@@ -1,11 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Avatar from "./Avatar";
 
 export default function Navbar() {
+  const { user } = useAuth();
+  
   const closeNavbar = () => {
     const navbarToggler = document.querySelector(
       ".navbar-toggler",
@@ -32,7 +36,6 @@ export default function Navbar() {
           className="flex items-center space-x-3"
         >
           <Image src="/fullsize-logo.png" alt="Logo" width={260} height={140} />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap text-[#735751] md:text-3xl"></span>
         </Link>
 
         <button
@@ -92,32 +95,42 @@ export default function Navbar() {
                 Events
               </Link>
             </li>
-            <li className="mb-4 md:mb-0">
-              <Link
-                onClick={closeNavbar}
-                href="/login"
-                className={`block py-2 px-3 rounded md:p-0 text-lg md:text-xl ${
-                  isActive("/login")
-                    ? "text-[#9e2a2b] font-semibold"
-                    : "text-[#735751] hover:text-[#bf4342]"
-                }`}
-              >
-                Login
-              </Link>
-            </li>
-            <li className="mb-4 md:mb-0">
-              <Link
-                onClick={closeNavbar}
-                href="/signup"
-                className={`block py-2 px-3 rounded md:p-0 text-lg md:text-xl ${
-                  isActive("/signup")
-                    ? "text-[#9e2a2b] font-semibold"
-                    : "text-[#735751] hover:text-[#bf4342]"
-                }`}
-              >
-                Sign up
-              </Link>
-            </li>
+
+
+            {user ? (
+              <li className="mb-4 md:mb-0 flex items-center">
+                <Avatar />
+              </li>
+            ) : (
+              <>
+                <li className="mb-4 md:mb-0">
+                  <Link
+                    onClick={closeNavbar}
+                    href="/login"
+                    className={`block py-2 px-3 rounded md:p-0 text-lg md:text-xl ${
+                      isActive("/login")
+                        ? "text-[#9e2a2b] font-semibold"
+                        : "text-[#735751] hover:text-[#bf4342]"
+                    }`}
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li className="mb-4 md:mb-0">
+                  <Link
+                    onClick={closeNavbar}
+                    href="/signup"
+                    className={`block py-2 px-3 rounded md:p-0 text-lg md:text-xl ${
+                      isActive("/signup")
+                        ? "text-[#9e2a2b] font-semibold"
+                        : "text-[#735751] hover:text-[#bf4342]"
+                    }`}
+                  >
+                    Sign up
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

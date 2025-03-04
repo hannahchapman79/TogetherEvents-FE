@@ -13,7 +13,7 @@ export default function AddEventButton() {
   return (
     <>
       <Link href={"/events/new"}>
-        <button className="fixed bottom-4 right-4 bg-accent-3 hover:bg-accent-3-hover text-white font-medium rounded-full p-4 shadow-lg flex items-center justify-center">
+        <button className="fixed bottom-4 right-4 bg-accent-3 hover:bg-accent-3-hover text-white font-medium rounded-full p-4 shadow-lg flex items-center justify-center z-50">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 mr-2"

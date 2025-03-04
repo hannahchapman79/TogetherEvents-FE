@@ -31,7 +31,7 @@ export default function EventCard({
   location,
 }: EventCardProps) {
   const eventImage =
-    image || categoryImages[category || ""] || "/images/default.jpg";
+    image || categoryImages[category || ""] || "/default.jpg";
 
   return (
     <Card className="py-4">

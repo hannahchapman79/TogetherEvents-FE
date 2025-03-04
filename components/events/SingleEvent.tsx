@@ -30,7 +30,7 @@ export default function SingleEvent({
   const eventImage =
     event.image ||
     categoryImages[event.category || ""] ||
-    "/images/default.jpg";
+    "/default.jpg";
 
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString("en-GB", {
@@ -51,11 +51,9 @@ export default function SingleEvent({
     });
   };
 
-  // Calculate event duration
   const startDate = new Date(event.startDate);
   const endDate = event.endDate ? new Date(event.endDate) : null;
 
-  // Get attendance stats
   const attendeeCount = event.attendees.length;
   const spotsRemaining = event.maxAttendees
     ? event.maxAttendees - attendeeCount

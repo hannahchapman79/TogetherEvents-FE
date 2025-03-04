@@ -5,7 +5,7 @@ import EditEventForm from "@/components/events/admin/EditEventForm";
 
 export default function EditEventPage() {
   const params = useParams();
-  const eventId = params?.id as string; 
+  const eventId = params?.id as string;
 
   return <EditEventForm eventId={eventId} />;
 }

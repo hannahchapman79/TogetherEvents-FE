@@ -12,9 +12,9 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+
   const [originalData, setOriginalData] = useState<any>(null);
-  
+
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -24,7 +24,7 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
     address: "",
     onlineLink: "",
     category: "",
-    imageUrl: "", 
+    imageUrl: "",
     maxAttendees: "",
     status: "draft",
   });
@@ -38,19 +38,19 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },
-          }
+          },
         );
-        
+
         const eventData = response.data;
         setEvent(eventData);
-        setOriginalData(eventData); 
-        
+        setOriginalData(eventData);
+
         const formatDateForInput = (dateString: string | number | Date) => {
           if (!dateString) return "";
           const date = new Date(dateString);
-          return date.toISOString().slice(0, 16); 
+          return date.toISOString().slice(0, 16);
         };
-        
+
         setFormData({
           title: eventData.title || "",
           description: eventData.description || "",
@@ -64,14 +64,14 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
           maxAttendees: eventData.maxAttendees?.toString() || "",
           status: eventData.status || "draft",
         });
-        
+
         setLoading(false);
       } catch (error) {
         setError("Failed to fetch event details");
         setLoading(false);
       }
     };
-  
+
     if (eventId) {
       fetchEvent();
     }
@@ -91,98 +91,119 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
 
   const getChangedFields = () => {
     if (!originalData) return {};
-    
+
     const changes: any = {};
-    
+
     if (formData.title !== originalData.title) {
       changes.title = formData.title;
     }
-    
+
     if (formData.description !== originalData.description) {
       changes.description = formData.description;
     }
-    
-    const startDate = formData.startDate ? new Date(formData.startDate).toISOString() : null;
-    const origStartDate = originalData.startDate ? new Date(originalData.startDate).toISOString() : null;
+
+    const startDate = formData.startDate
+      ? new Date(formData.startDate).toISOString()
+      : null;
+    const origStartDate = originalData.startDate
+      ? new Date(originalData.startDate).toISOString()
+      : null;
     if (startDate !== origStartDate) {
-      changes.startDate = formData.startDate ? new Date(formData.startDate).toISOString() : null;
+      changes.startDate = formData.startDate
+        ? new Date(formData.startDate).toISOString()
+        : null;
     }
-    
-    const endDate = formData.endDate ? new Date(formData.endDate).toISOString() : null;
-    const origEndDate = originalData.endDate ? new Date(originalData.endDate).toISOString() : null;
+
+    const endDate = formData.endDate
+      ? new Date(formData.endDate).toISOString()
+      : null;
+    const origEndDate = originalData.endDate
+      ? new Date(originalData.endDate).toISOString()
+      : null;
     if (endDate !== origEndDate) {
-      changes.endDate = formData.endDate ? new Date(formData.endDate).toISOString() : null;
+      changes.endDate = formData.endDate
+        ? new Date(formData.endDate).toISOString()
+        : null;
     }
-    
+
     if (formData.category !== originalData.category) {
       changes.category = formData.category;
     }
-    
+
     if (formData.imageUrl !== (originalData.imageUrl || "")) {
       changes.imageUrl = formData.imageUrl || undefined;
     }
-    
-    const maxAttendees = formData.maxAttendees ? parseInt(formData.maxAttendees) : undefined;
+
+    const maxAttendees = formData.maxAttendees
+      ? parseInt(formData.maxAttendees)
+      : undefined;
     if (maxAttendees !== originalData.maxAttendees) {
       changes.maxAttendees = maxAttendees;
     }
-    
+
     if (formData.status !== originalData.status) {
       changes.status = formData.status;
     }
-    
+
     const originalLocationType = originalData.location?.type || "physical";
     if (formData.locationType !== originalLocationType) {
       changes.location = { type: formData.locationType };
     }
-    
+
     const originalAddress = originalData.location?.address || "";
     const originalOnlineLink = originalData.location?.onlineLink || "";
-    
-    if (formData.address !== originalAddress || 
-        formData.onlineLink !== originalOnlineLink ||
-        formData.locationType !== originalLocationType) {
 
+    if (
+      formData.address !== originalAddress ||
+      formData.onlineLink !== originalOnlineLink ||
+      formData.locationType !== originalLocationType
+    ) {
       changes.location = changes.location || { type: formData.locationType };
-      
-      if ((formData.locationType === "physical" || formData.locationType === "hybrid") &&
-          formData.address !== originalAddress) {
+
+      if (
+        (formData.locationType === "physical" ||
+          formData.locationType === "hybrid") &&
+        formData.address !== originalAddress
+      ) {
         changes.location.address = formData.address;
       }
-      
-      if ((formData.locationType === "online" || formData.locationType === "hybrid") &&
-          formData.onlineLink !== originalOnlineLink) {
+
+      if (
+        (formData.locationType === "online" ||
+          formData.locationType === "hybrid") &&
+        formData.onlineLink !== originalOnlineLink
+      ) {
         changes.location.onlineLink = formData.onlineLink;
       }
     }
-    
+
     return changes;
   };
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-  
+
     if (!user?.isAdmin) {
       setError("Only admins can update events");
       return;
     }
-  
+
     setSaving(true);
     setError(null);
-    
+
     const updates = getChangedFields();
-    
+
     if (Object.keys(updates).length === 0) {
       setError("No changes detected");
       setSaving(false);
       return;
     }
-    
+
     try {
       console.log(accessToken);
       await axios.patch(
         `${process.env.NEXT_PUBLIC_API_URL}/events/${eventId}`,
-     updates,
+        updates,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -197,9 +218,11 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
       setSaving(false);
     }
   };
-  
+
   if (loading) {
-    return <div className="text-center p-6 mt-20">Loading event details...</div>;
+    return (
+      <div className="text-center p-6 mt-20">Loading event details...</div>
+    );
   }
 
   if (error && !event) {
@@ -212,7 +235,9 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
 
       <form onSubmit={handleSubmit} className="max-w-md mx-auto pt-4">
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Title *</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Title *
+          </label>
           <input
             type="text"
             name="title"
@@ -224,7 +249,9 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Description *</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Description *
+          </label>
           <textarea
             name="description"
             value={formData.description}
@@ -236,7 +263,9 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Start Date *</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Start Date *
+          </label>
           <input
             type="datetime-local"
             name="startDate"
@@ -247,7 +276,9 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">End Date</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            End Date
+          </label>
           <input
             type="datetime-local"
             name="endDate"
@@ -258,7 +289,9 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Location Type *</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Location Type *
+          </label>
           <select
             name="locationType"
             value={formData.locationType}
@@ -275,7 +308,9 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
         {(formData.locationType === "physical" ||
           formData.locationType === "hybrid") && (
           <div className="mb-5">
-            <label className="block mb-2 text-sm font-medium text-gray-900">Address</label>
+            <label className="block mb-2 text-sm font-medium text-gray-900">
+              Address
+            </label>
             <input
               type="text"
               name="address"
@@ -289,7 +324,9 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
         {(formData.locationType === "online" ||
           formData.locationType === "hybrid") && (
           <div className="mb-5">
-            <label className="block mb-2 text-sm font-medium text-gray-900">Online Link</label>
+            <label className="block mb-2 text-sm font-medium text-gray-900">
+              Online Link
+            </label>
             <input
               type="url"
               name="onlineLink"
@@ -301,7 +338,9 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
         )}
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Category *</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Category *
+          </label>
           <input
             type="text"
             name="category"
@@ -311,9 +350,11 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
           />
         </div>
-        
+
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Image URL</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Image URL
+          </label>
           <input
             type="text"
             name="imageUrl"
@@ -324,7 +365,9 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Max Attendees</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Max Attendees
+          </label>
           <input
             type="number"
             name="maxAttendees"
@@ -336,7 +379,9 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Status *</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Status *
+          </label>
           <select
             name="status"
             value={formData.status}
@@ -363,7 +408,7 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
           >
             Cancel
           </button>
-          
+
           <button
             type="submit"
             disabled={saving}

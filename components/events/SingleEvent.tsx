@@ -19,7 +19,7 @@ export default function SingleEvent({ event }: SingleEventProps) {
       <GoogleCalendarButton event={event} />
       <AttendEventButton eventId={event._id} />
       <DeleteEventButton eventId={event._id} />
-      <EditEventButton eventId={event._id}/>
+      <EditEventButton eventId={event._id} />
     </div>
   );
 }

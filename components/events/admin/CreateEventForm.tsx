@@ -14,7 +14,7 @@ const initialFormData = {
   address: "",
   onlineLink: "",
   category: "",
-  imageUrl: "", 
+  imageUrl: "",
   maxAttendees: "",
   status: "draft",
 };
@@ -86,11 +86,15 @@ export function CreateEventForm() {
   };
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-center my-6 mt-12">Create New Event</h1>
+      <h1 className="text-3xl font-bold text-center my-6 mt-12">
+        Create New Event
+      </h1>
 
       <form onSubmit={handleSubmit} className="max-w-md mx-auto pt-4">
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Title *</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Title *
+          </label>
           <input
             type="text"
             name="title"
@@ -102,7 +106,9 @@ export function CreateEventForm() {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Description *</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Description *
+          </label>
           <textarea
             name="description"
             value={formData.description}
@@ -114,7 +120,9 @@ export function CreateEventForm() {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Start Date *</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Start Date *
+          </label>
           <input
             type="datetime-local"
             name="startDate"
@@ -126,7 +134,9 @@ export function CreateEventForm() {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">End Date</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            End Date
+          </label>
           <input
             type="datetime-local"
             name="endDate"
@@ -137,7 +147,9 @@ export function CreateEventForm() {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Location Type *</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Location Type *
+          </label>
           <select
             name="locationType"
             value={formData.locationType}
@@ -154,7 +166,9 @@ export function CreateEventForm() {
         {(formData.locationType === "online" ||
           formData.locationType === "hybrid") && (
           <div className="mb-5">
-            <label className="block mb-2 text-sm font-medium text-gray-900">Online Link</label>
+            <label className="block mb-2 text-sm font-medium text-gray-900">
+              Online Link
+            </label>
             <input
               type="url"
               name="onlineLink"
@@ -166,7 +180,9 @@ export function CreateEventForm() {
         )}
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Category *</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Category *
+          </label>
           <input
             type="text"
             name="category"
@@ -177,7 +193,9 @@ export function CreateEventForm() {
           />
         </div>
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Image URL</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Image URL
+          </label>
           <input
             type="text"
             name="image url"
@@ -189,7 +207,9 @@ export function CreateEventForm() {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Max Attendees</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Max Attendees
+          </label>
           <input
             type="number"
             name="maxAttendees"
@@ -201,7 +221,9 @@ export function CreateEventForm() {
         </div>
 
         <div className="mb-5">
-          <label className="block mb-2 text-sm font-medium text-gray-900">Status *</label>
+          <label className="block mb-2 text-sm font-medium text-gray-900">
+            Status *
+          </label>
           <select
             name="status"
             value={formData.status}

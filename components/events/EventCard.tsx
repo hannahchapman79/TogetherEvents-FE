@@ -41,12 +41,13 @@ export default function EventCard({
           <p className="text-default-500">{startDate}</p>
           <h4 className="font-bold text-large">{name}</h4>
         </CardHeader>
-        <CardBody className="overflow-visible py-2">
+        <CardBody className="overflow-visible py-2 flex justify-center">
           <Image
             alt="Card background"
             className="object-cover rounded-xl"
             src={eventImage}
             width={270}
+            height={180}
           />
         </CardBody>
       </Link>

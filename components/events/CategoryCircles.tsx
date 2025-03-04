@@ -8,6 +8,7 @@ import {
 } from "react-icons/lu";
 import { FaRegHeart } from "react-icons/fa";
 import { IoSchoolOutline } from "react-icons/io5";
+import { GrWorkshop } from "react-icons/gr";
 
 export default function CategoryCircles() {
   const categories = [
@@ -29,6 +30,11 @@ export default function CategoryCircles() {
       name: "Education",
       slug: "education",
       icon: <IoSchoolOutline size={28} />,
+    },
+    {
+      name: "Workshops",
+      slug: "workshops",
+      icon: <GrWorkshop size={28} />,
     },
   ];
 

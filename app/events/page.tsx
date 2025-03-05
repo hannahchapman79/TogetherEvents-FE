@@ -32,7 +32,7 @@ export default async function EventsPage({
   const { events } = await getEvents(category);
 
   return (
-    <div className="container mx-auto px-4 mt-16">
+    <div className="container mx-auto px-4 mt-16 justify-center">
       <AddEventButton />
       <h1 className="text-3xl font-bold text-center my-6">
         {formattedCategory ? `${formattedCategory} Events` : "All Events"}

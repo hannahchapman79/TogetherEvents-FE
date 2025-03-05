@@ -28,9 +28,7 @@ export default function SingleEvent({
   isAdmin = false,
 }: SingleEventProps) {
   const eventImage =
-    event.image ||
-    categoryImages[event.category || ""] ||
-    "/default.jpg";
+    event.image || categoryImages[event.category || ""] || "/default.jpg";
 
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString("en-GB", {

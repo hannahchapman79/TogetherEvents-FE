@@ -10,6 +10,7 @@ interface EventCardProps {
   image: string | undefined;
   category: string | null;
   location: string;
+  description: string;
 }
 
 const categoryImages: Record<string, string> = {
@@ -28,6 +29,7 @@ export default function EventCard({
   startDate,
   image,
   category,
+  description,
   location,
 }: EventCardProps) {
   const eventImage = image || categoryImages[category || ""] || "/default.jpg";
@@ -46,12 +48,21 @@ export default function EventCard({
         </div>
 
         <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-          <p className="text-tiny uppercase font-bold">{category}</p>
-          <p className="text-default-500">{startDate}</p>
-          <h4 className="font-bold text-large">{name}</h4>
+          <div className="flex justify-between w-full text-sm">
+            <span className="ml-2 inline-block px-3 py-1 text-sm font-semibold rounded-full bg-blue-100 text-blue-800">
+              {category}
+            </span>
+            <span>{startDate}</span>
+          </div>
+
+          <h4 className="font-bold text-xl mt-1">{name}</h4>
         </CardHeader>
 
-        <CardBody className="overflow-visible py-2 flex justify-center"></CardBody>
+        <CardBody className="overflow-visible py-2 flex justify-center">
+          <p className="text-gray-600 text-sm line-clamp-2 leading-tight">
+            {description}
+          </p>
+        </CardBody>
       </Link>
     </Card>
   );

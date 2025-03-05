@@ -21,6 +21,7 @@ export default function EventsList({ events }: EventsListProps) {
               image={event.image}
               category={event.category}
               location={event.location.type}
+              description={event.description}
             />
           ))}
         </div>

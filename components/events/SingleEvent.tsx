@@ -64,7 +64,7 @@ export default function SingleEvent({
           <img
             src={eventImage}
             alt={event.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover hover:scale-105 ease-in duration-150"
           />
         </div>
       ) : (

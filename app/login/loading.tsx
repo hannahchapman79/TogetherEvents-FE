@@ -2,6 +2,6 @@
 
 import Loader from "@/components/navigation/Loader";
 
-export default function LoadingHome() {
+export default function LoadingLogin() {
   return <Loader />;
 }

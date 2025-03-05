@@ -68,6 +68,6 @@ export default function AttendEventButton({ eventId }: { eventId: string }) {
       )}
 
       {success && <p className="text-green-500 mt-2">You are attending!</p>}
-      </div>
+    </div>
   );
 }

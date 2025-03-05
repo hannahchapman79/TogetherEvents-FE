@@ -152,7 +152,7 @@ export default function SingleEvent({
         <GoogleCalendarButton event={event} />
         <AttendEventButton eventId={event._id} />
 
-        <div className="flex gap-3 ml-auto">
+        <div className="flex flex-wrap gap-3 ml-auto sm:flex-nowrap sm:justify-end">
           <EditEventButton eventId={event._id} />
           <DeleteEventButton eventId={event._id} />
         </div>

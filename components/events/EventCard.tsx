@@ -55,7 +55,7 @@ export default function EventCard({
             <span>{startDate}</span>
           </div>
 
-          <h4 className="font-bold text-xl mt-1">{name}</h4>
+          <h4 className="font-bold text-xl mt-4">{name}</h4>
         </CardHeader>
 
         <CardBody className="overflow-visible py-2 flex justify-center">

@@ -53,8 +53,7 @@ export default function AttendEventButton({ eventId }: { eventId: string }) {
     <div>
       <button
         onClick={handleAttendEvent}
-        disabled={loading || !user}
-        className="mt-4 text-white bg-accent-3 hover:bg-accent-3-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+        className="mt-4 text-white bg-accent-3 hover:bg-accent-3-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
       >
         {loading ? "Attending..." : "Attend Event"}
       </button>
@@ -62,12 +61,13 @@ export default function AttendEventButton({ eventId }: { eventId: string }) {
       {error && (
         <p
           role="alert"
-          className="mt-2 p-4 mb-5 max-w-xs text-sm text-red-800 rounded-lg bg-red-50"
+          className="mt-2 p-4 mb-5 text-sm text-red-800 rounded-lg bg-red-50"
         >
           {error}
         </p>
       )}
+
       {success && <p className="text-green-500 mt-2">You are attending!</p>}
-    </div>
+      </div>
   );
 }

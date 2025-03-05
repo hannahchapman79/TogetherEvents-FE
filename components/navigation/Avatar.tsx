@@ -5,7 +5,6 @@ import { useAuth } from "@/context/AuthContext";
 export default function Avatar() {
   const { user } = useAuth();
   const username = user?.username || "";
-  console.log(user);
 
   const getInitial = (name: string) => {
     return name.charAt(0).toUpperCase();

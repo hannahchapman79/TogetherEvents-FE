@@ -39,7 +39,7 @@ export function SignupForm() {
   };
 
   return (
-    <form className="max-w-sm mx-auto pt-20" onSubmit={handleSubmit}>
+    <form className="max-w-sm mx-auto pt-20 ml-6 mr-6" onSubmit={handleSubmit}>
       <div className="mb-5">
         <label className="block mb-2 text-sm font-medium text-gray-900">
           Name

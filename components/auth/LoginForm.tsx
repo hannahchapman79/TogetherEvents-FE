@@ -32,11 +32,10 @@ export function LoginForm() {
         console.log("Login error response:", error.response?.data);
       } else {
         setError("An unexpected error occurred. Please try again.");
-      } 
+      }
+    } finally {
+      setLoading(false);
     }
-    finally {
-    setLoading(false);
-  }
   };
 
   return (
@@ -90,4 +89,4 @@ export function LoginForm() {
       )}
     </div>
   );
-          }
+}

@@ -5,15 +5,32 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
 
+interface EventData {
+  id?: string;
+  title: string;
+  description: string;
+  startDate: string | null;
+  endDate: string | null;
+  location?: {
+    type: "physical" | "online" | "hybrid";
+    address?: string;
+    onlineLink?: string;
+  };
+  category: string;
+  imageUrl?: string;
+  maxAttendees?: number;
+  status: "draft" | "published" | "cancelled" | "completed";
+}
+
 export default function EditEventForm({ eventId }: { eventId: string }) {
   const { user, accessToken } = useAuth();
   const router = useRouter();
-  const [event, setEvent] = useState<any>({});
+  const [event, setEvent] = useState<EventData | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const [originalData, setOriginalData] = useState<any>(null);
+  const [originalData, setOriginalData] = useState<EventData | null>(null);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -94,7 +111,7 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
     }));
   };
 
-  const getChangedFields = () => {
+  const getChangedFields = (): Partial<EventData> => {
     if (!originalData) return {};
 
     const changes: any = {};

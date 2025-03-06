@@ -1,15 +1,15 @@
 import SingleEvent from "@/components/events/SingleEvent";
 import Event from "@/types/event";
 
-export interface EventPageParams {
+interface EventPageParams {
   id: string;
 }
 
-export default async function EventPage({
-  params,
-}: {
+interface EventPageProps {
   params: EventPageParams;
-}) {
+}
+
+export default async function EventPage({ params }: EventPageProps) {
   const { id } = params;
 
   if (!id) {
@@ -21,7 +21,7 @@ export default async function EventPage({
       `${process.env.NEXT_PUBLIC_API_URL}/events/${id}`,
       {
         cache: "no-store",
-      },
+      }
     );
 
     if (!response.ok) {

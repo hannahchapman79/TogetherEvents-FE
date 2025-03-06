@@ -10,7 +10,7 @@ interface EventPageProps {
 }
 
 export default async function EventPage({ params }: EventPageProps) {
-  const { id } = params;
+  const { id } = await params;
 
   if (!id) {
     return <p>Event ID not found.</p>;

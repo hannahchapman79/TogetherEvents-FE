@@ -240,12 +240,6 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="text-center p-6 mt-20">Loading event details...</div>
-    );
-  }
-
   if (error && !event) {
     return <div className="text-center p-6 text-red-600">{error}</div>;
   }

@@ -109,13 +109,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
+    const storedToken = localStorage.getItem("accessToken");
 
     if (storedUser) {
       setUser(JSON.parse(storedUser));
-      setLoading(false);
-    } else {
-      checkAuth();
     }
+
+    if (storedToken) {
+      setAccessToken(storedToken);
+    }
+
+    checkAuth();
   }, []);
 
   const handleAuthFailure = () => {
@@ -163,9 +167,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       );
 
       const userData = response.data.user;
+      const accessToken = response.data.accessToken;
+
       setUser(userData);
+      setAccessToken(accessToken);
 
       localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("accessToken", accessToken);
 
       router.push("/events");
     } catch (error) {

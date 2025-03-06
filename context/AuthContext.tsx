@@ -30,42 +30,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
   const isAuthRoute = AUTH_ROUTES.some((route) => pathname?.startsWith(route));
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedToken = localStorage.getItem("accessToken");
-      const storedUser = localStorage.getItem("user");
-
-      if (storedToken) {
-        setAccessToken(storedToken);
-      }
-
-      if (storedUser) {
-        try {
-          setUser(JSON.parse(storedUser));
-        } catch (e) {
-          console.error("Failed to parse stored user:", e);
-          localStorage.removeItem("user");
-        }
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (accessToken) {
-        localStorage.setItem("accessToken", accessToken);
-      } else {
-        localStorage.removeItem("accessToken");
-      }
-
-      if (user) {
-        localStorage.setItem("user", JSON.stringify(user));
-      } else {
-        localStorage.removeItem("user");
-      }
-    }
-  }, [user, accessToken]);
-
   const refreshAccessToken = async () => {
     try {
       const response = await axios.post(
@@ -87,7 +51,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const checkAuth = async () => {
-    // Always check auth on initial load or route change
+    // Skip auth check if not on protected route and no user exists
+    if (!isProtectedRoute && !user) {
+      setLoading(false);
+      return;
+    }
+
+    // If we have a user and token, just finish loading
+    if (user && accessToken) {
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
@@ -104,28 +79,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         router.push("/events");
       }
     } catch (error) {
-      try {
+      if (user) {
         const newToken = await refreshAccessToken();
         if (newToken) {
-          const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
-            {
-              withCredentials: true,
-              headers: { Authorization: `Bearer ${newToken}` },
-            },
-          );
-          setUser(response.data.user);
-
-          if (isAuthRoute) {
-            router.push("/events");
+          try {
+            const response = await axios.get(
+              `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
+              {
+                withCredentials: true,
+                headers: { Authorization: `Bearer ${newToken}` },
+              },
+            );
+            setUser(response.data.user);
+          } catch {
+            if (isProtectedRoute) {
+              handleAuthFailure();
+            }
           }
         } else if (isProtectedRoute) {
           handleAuthFailure();
         }
-      } catch (refreshError) {
-        if (isProtectedRoute) {
-          handleAuthFailure();
-        }
+      } else if (isProtectedRoute) {
+        handleAuthFailure();
       }
     } finally {
       setLoading(false);
@@ -133,8 +108,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    checkAuth();
-  }, [pathname]);
+    const storedUser = localStorage.getItem("user");
+
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      setLoading(false);
+    } else {
+      checkAuth();
+    }
+  }, []);
 
   const handleAuthFailure = () => {
     if (isProtectedRoute) {
@@ -170,7 +152,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     );
 
     return () => axios.interceptors.response.eject(interceptor);
-  }, [pathname, user, isProtectedRoute]);
+  }, [pathname]);
 
   const login = async (email: string, password: string) => {
     try {
@@ -179,8 +161,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         { email, password },
         { withCredentials: true },
       );
-      setUser(response.data.user);
-      setAccessToken(response.data.accessToken);
+
+      const userData = response.data.user;
+      setUser(userData);
+
+      localStorage.setItem("user", JSON.stringify(userData));
+
       router.push("/events");
     } catch (error) {
       throw error;
@@ -199,8 +185,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     setUser(null);
     setAccessToken(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("accessToken");
     router.push("/login");
   };
 

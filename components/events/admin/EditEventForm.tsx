@@ -222,7 +222,6 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
     }
 
     try {
-      console.log(accessToken);
       await axios.patch(
         `${process.env.NEXT_PUBLIC_API_URL}/events/${eventId}`,
         updates,

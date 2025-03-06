@@ -1,16 +1,8 @@
 import SingleEvent from "@/components/events/SingleEvent";
 import Event from "@/types/event";
 
-interface EventPageParams {
-  id: string;
-}
-
-interface EventPageProps {
-  params: EventPageParams;
-}
-
-export default async function EventPage({ params }: EventPageProps) {
-  const { id } = await params;
+export default async function EventPage({ params }: { params: Promise<{ id: string }> }) {
+  const id = (await params).id
 
   if (!id) {
     return <p>Event ID not found.</p>;

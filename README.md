@@ -11,6 +11,7 @@ TogetherEvents Frontend is a Next.js and React web application that provides the
 ### Dependencies
 
 **Development Dependencies**
+
 - ESLint: ^9
 - Prettier: ^3.5.0
 - TypeScript: ^5
@@ -18,6 +19,7 @@ TogetherEvents Frontend is a Next.js and React web application that provides the
 - PostCSS: ^8.5.1
 
 **Dependencies**
+
 - Next.js: 15.1.6
 - React: ^19.0.0
 - React DOM: ^19.0.0
@@ -27,6 +29,7 @@ TogetherEvents Frontend is a Next.js and React web application that provides the
 - @heroui/react: ^2.6.14
 
 **Requirements**
+
 - Node.js: v21.1.0
 
 ### Installation
@@ -48,4 +51,3 @@ TogetherEvents Frontend is a Next.js and React web application that provides the
 
 7. Run `npm run lint` to check for linting errors
 8. Run `npm run format` to format code with Prettier
-

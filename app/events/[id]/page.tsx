@@ -1,8 +1,12 @@
 import SingleEvent from "@/components/events/SingleEvent";
 import Event from "@/types/event";
 
-export default async function EventPage({ params }: { params: Promise<{ id: string }> }) {
-  const id = (await params).id
+export default async function EventPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const id = (await params).id;
 
   if (!id) {
     return <p>Event ID not found.</p>;
@@ -13,7 +17,7 @@ export default async function EventPage({ params }: { params: Promise<{ id: stri
       `${process.env.NEXT_PUBLIC_API_URL}/events/${id}`,
       {
         cache: "no-store",
-      }
+      },
     );
 
     if (!response.ok) {

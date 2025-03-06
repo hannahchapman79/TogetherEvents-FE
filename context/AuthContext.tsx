@@ -30,6 +30,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
   const isAuthRoute = AUTH_ROUTES.some((route) => pathname?.startsWith(route));
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("accessToken");
+      const storedUser = localStorage.getItem("user");
+
+      if (storedToken) {
+        setAccessToken(storedToken);
+      }
+
+      if (storedUser) {
+        try {
+          setUser(JSON.parse(storedUser));
+        } catch (e) {
+          console.error("Failed to parse stored user:", e);
+          localStorage.removeItem("user");
+        }
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (accessToken) {
+        localStorage.setItem("accessToken", accessToken);
+      } else {
+        localStorage.removeItem("accessToken");
+      }
+
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+      } else {
+        localStorage.removeItem("user");
+      }
+    }
+  }, [user, accessToken]);
+
   const refreshAccessToken = async () => {
     try {
       const response = await axios.post(
@@ -51,18 +87,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const checkAuth = async () => {
-    // Skip auth check if not on protected route and no user exists
-    if (!isProtectedRoute && !user) {
-      setLoading(false);
-      return;
-    }
-
-    // If we have a user and token, just finish loading
-    if (user && accessToken) {
-      setLoading(false);
-      return;
-    }
-
+    // Always check auth on initial load or route change
     try {
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
@@ -79,30 +104,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         router.push("/events");
       }
     } catch (error) {
-      // Only try refresh if we had a user before
-      if (user) {
+      try {
         const newToken = await refreshAccessToken();
         if (newToken) {
-          try {
-            const response = await axios.get(
-              `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
-              {
-                withCredentials: true,
-                headers: { Authorization: `Bearer ${newToken}` },
-              },
-            );
-            setUser(response.data.user);
-          } catch {
-            // Only redirect on protected routes
-            if (isProtectedRoute) {
-              handleAuthFailure();
-            }
+          const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
+            {
+              withCredentials: true,
+              headers: { Authorization: `Bearer ${newToken}` },
+            },
+          );
+          setUser(response.data.user);
+
+          if (isAuthRoute) {
+            router.push("/events");
           }
         } else if (isProtectedRoute) {
           handleAuthFailure();
         }
-      } else if (isProtectedRoute) {
-        handleAuthFailure();
+      } catch (refreshError) {
+        if (isProtectedRoute) {
+          handleAuthFailure();
+        }
       }
     } finally {
       setLoading(false);
@@ -147,14 +170,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     );
 
     return () => axios.interceptors.response.eject(interceptor);
-  }, [pathname]);
+  }, [pathname, user, isProtectedRoute]);
 
   const login = async (email: string, password: string) => {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
         { email, password },
-        { withCredentials: true }, // Added withCredentials
+        { withCredentials: true },
       );
       setUser(response.data.user);
       setAccessToken(response.data.accessToken);
@@ -176,6 +199,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     setUser(null);
     setAccessToken(null);
+    localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
     router.push("/login");
   };
 

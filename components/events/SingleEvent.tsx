@@ -1,5 +1,5 @@
 import { SiGooglecalendar } from "react-icons/si";
-import { FiMapPin, FiUsers } from "react-icons/fi";
+import { FiMapPin } from "react-icons/fi";
 import { LuClock } from "react-icons/lu";
 import { IoLink } from "react-icons/io5";
 import Event from "@/types/event";
@@ -23,10 +23,7 @@ const categoryImages: Record<string, string> = {
   Education: "education.jpg",
 };
 
-export default function SingleEvent({
-  event,
-  isAdmin = false,
-}: SingleEventProps) {
+export default function SingleEvent({ event }: SingleEventProps) {
   const eventImage =
     event.image || categoryImages[event.category || ""] || "/default.jpg";
 

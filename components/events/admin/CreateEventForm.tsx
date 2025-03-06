@@ -68,18 +68,19 @@ export function CreateEventForm() {
     };
 
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/events`,
-        eventData,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/events`, eventData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
         },
-      );
+      });
       router.push("/events");
     } catch (error) {
-      setError("Failed to create event. Please try again.");
+      if (axios.isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.message ||
+          "Failed to create event. Please try again.";
+        setError(errorMessage);
+      }
     } finally {
       setLoading(false);
     }

@@ -67,7 +67,12 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
 
         setLoading(false);
       } catch (error) {
-        setError("Failed to fetch event details");
+        if (axios.isAxiosError(error)) {
+          const errorMessage =
+            error.response?.data?.message ||
+            "Failed to edit event. Please try again.";
+          setError(errorMessage);
+        }
         setLoading(false);
       }
     };

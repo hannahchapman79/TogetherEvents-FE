@@ -36,14 +36,16 @@ export default function AttendEventButton({ eventId }: { eventId: string }) {
       }
 
       setSuccess(true);
-    } catch (error: any) {
-      if (error.response?.status === 401) {
-        setError("Your session has expired. Please log in again.");
-        return;
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.message || error.message || "An error occurred";
+        setError(errorMessage);
+      } else if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("An unknown error occurred");
       }
-      const errorMessage =
-        error.response?.data?.message || error.message || "An error occurred";
-      setError(errorMessage);
     } finally {
       setLoading(false);
     }

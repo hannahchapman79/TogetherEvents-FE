@@ -32,7 +32,12 @@ export default function DeleteEventButton({ eventId }: { eventId: string }) {
         },
       );
     } catch (error) {
-      setError("Failed to delete event. Please try again.");
+      if (axios.isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.message ||
+          "Failed to delete event. Please try again.";
+        setError(errorMessage);
+      }
     } finally {
       setLoading(false);
       router.push("/events");

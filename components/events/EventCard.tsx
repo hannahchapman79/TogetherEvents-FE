@@ -30,7 +30,6 @@ export default function EventCard({
   image,
   category,
   description,
-  location,
 }: EventCardProps) {
   const eventImage = image || categoryImages[category || ""] || "/default.jpg";
 

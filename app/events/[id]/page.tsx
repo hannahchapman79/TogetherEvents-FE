@@ -1,10 +1,14 @@
 import SingleEvent from "@/components/events/SingleEvent";
 import Event from "@/types/event";
 
+export interface EventPageParams {
+  id: string;
+}
+
 export default async function EventPage({
   params,
 }: {
-  params: { id: string };
+  params: EventPageParams;
 }) {
   const { id } = params;
 

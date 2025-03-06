@@ -11,13 +11,12 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.config({
-    extends: ['next'],
+    extends: ["next"],
     rules: {
       "@next/next/no-img-element": "off",
       "@typescript-eslint/no-explicit-any": "off",
     },
   }),
-]
-
+];
 
 export default eslintConfig;

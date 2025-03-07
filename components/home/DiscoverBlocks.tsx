@@ -19,7 +19,7 @@ export default function DiscoverBlocks() {
               />
             </svg>
           </div>
-          <h3 className="text-xl font-medium mb-2">Discover Events</h3>
+          <h2 className="text-xl font-medium mb-2">Discover Events</h2>
           <p className="text-gray-600">
             Find events that match your interests in your local area.
           </p>
@@ -42,7 +42,7 @@ export default function DiscoverBlocks() {
               />
             </svg>
           </div>
-          <h3 className="text-xl font-medium mb-2">Connect</h3>
+          <h2 className="text-xl font-medium mb-2">Connect</h2>
           <p className="text-gray-600">
             Meet people who share your passions and build meaningful
             connections.
@@ -66,7 +66,7 @@ export default function DiscoverBlocks() {
               />
             </svg>
           </div>
-          <h3 className="text-xl font-medium mb-2">Organise</h3>
+          <h2 className="text-xl font-medium mb-2">Organise</h2>
           <p className="text-gray-600">
             Create and manage your own events with our easy-to-use tools.
           </p>

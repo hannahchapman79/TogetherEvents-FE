@@ -134,29 +134,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const interceptor = axios.interceptors.response.use(
       (response) => response,
       async (error) => {
+        const originalRequest = error.config;
+  
         if (
           (error.response?.status === 401 || error.response?.status === 403) &&
-          !error.config._retry &&
-          (isProtectedRoute || user)
+          !originalRequest._retry
         ) {
-          const originalRequest = { ...error.config };
-          originalRequest._retry = true;
+          originalRequest._retry = true; 
+  
           const newToken = await refreshAccessToken();
-
+  
           if (newToken) {
-            error.config.headers["Authorization"] = `Bearer ${newToken}`;
-            localStorage.setItem("accessToken", newToken);
-            return axios(error.config);
-          }
 
-          if (isProtectedRoute) {
-            handleAuthFailure();
+
+            originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
+            originalRequest.withCredentials = true;
+            return axios(originalRequest); 
+          } else {
+            handleAuthFailure(); 
+            return Promise.reject(error);
           }
         }
+  
         return Promise.reject(error);
-      },
+      }
     );
-
+  
     return () => axios.interceptors.response.eject(interceptor);
   }, [pathname, accessToken]);
 

@@ -31,7 +31,6 @@ export default function AttendEventButton({ eventId }: { eventId: string }) {
         },
       );
 
-      console.log(response.status);
       if (response.status !== 201) {
         throw new Error("Failed to attend event");
       }

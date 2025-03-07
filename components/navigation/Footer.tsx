@@ -31,7 +31,7 @@ export default function Footer() {
           </li>
         </ul>
       </div>
-      <div className="text-center text-sm text-[#a78a7f] mt-4">
+      <div className="text-center text-sm text-[#4a4a4a] mt-4">
         © 2025 Together Events
       </div>
     </footer>

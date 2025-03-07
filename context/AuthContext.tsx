@@ -41,11 +41,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       );
       const newToken = response.data.accessToken;
       setAccessToken(newToken);
+      localStorage.setItem("accessToken", newToken);
       return newToken;
     } catch (error) {
-      console.error("Failed to refresh token:", error);
-      setUser(null);
-      setAccessToken(null);
       return null;
     }
   };
@@ -119,7 +117,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setAccessToken(storedToken);
     }
 
-    checkAuth();
+    if (storedUser && storedToken) {
+      checkAuth();
+    }
   }, []);
 
   const handleAuthFailure = () => {
@@ -135,15 +135,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       (response) => response,
       async (error) => {
         if (
-          error.response?.status === 401 &&
+          (error.response?.status === 401 || error.response?.status === 403) &&
           !error.config._retry &&
           (isProtectedRoute || user)
         ) {
-          error.config._retry = true;
+          const originalRequest = { ...error.config };
+          originalRequest._retry = true;
           const newToken = await refreshAccessToken();
 
           if (newToken) {
             error.config.headers["Authorization"] = `Bearer ${newToken}`;
+            localStorage.setItem("accessToken", newToken);
             return axios(error.config);
           }
 
@@ -156,7 +158,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     );
 
     return () => axios.interceptors.response.eject(interceptor);
-  }, [pathname]);
+  }, [pathname, accessToken]);
 
   const login = async (email: string, password: string) => {
     try {

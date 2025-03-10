@@ -41,7 +41,7 @@ export default function Navbar() {
         <button
           onClick={() => setIsOpen(!isOpen)}
           type="button"
-          className="navbar-toggler md:hidden inline-flex items-center p-2 w-10 h-10 justify-center text-[#735751] rounded-lg hover:bg-[#a78a7f] hover:text-[#e7d7c1] focus:outline-none focus:ring-2 focus:ring-[#bf4342]"
+          className="navbar-toggler md:hidden inline-flex items-center p-2 w-10 h-10 justify-center text-[#735751] rounded-lg hover:text-[#e7d7c1] focus:outline-none focus:ring-2 focus:ring-[#bf4342]"
           aria-controls="navbar-default"
           aria-expanded={isOpen}
         >
@@ -53,7 +53,7 @@ export default function Navbar() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              stroke="currentColor"
+              stroke="#735751"
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
@@ -68,7 +68,7 @@ export default function Navbar() {
           } w-full md:block md:w-auto transition-all duration-200 ease-in-out`}
           id="navbar-default"
         >
-          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg bg-[#e7d7c1] md:bg-transparent md:flex-row md:space-x-8 md:mt-0 md:items-center">
+          <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:items-center">
             <li className="mb-4 md:mb-0">
               <Link
                 onClick={closeNavbar}

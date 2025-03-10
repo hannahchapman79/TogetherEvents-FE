@@ -34,7 +34,7 @@ export default function EventCard({
   const eventImage = image || categoryImages[category || ""] || "/default.jpg";
 
   return (
-    <Card className="w-full h-full flex flex-col justify-center max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 m-6">
+    <Card className="w-full h-full flex flex-col justify-center max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm m-6">
       <Link className="w-full h-full" href={`/events/${id}`}>
         <div className="relative w-full h-[180px]">
           <Image

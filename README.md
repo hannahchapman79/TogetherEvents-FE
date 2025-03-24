@@ -74,7 +74,8 @@ It was built using Node.js, JavaScript, Express, MongoDB, Bcrypt for password ha
 3. Create a `.env.local` file in the root of the project and add the following variable:
 
 ```ini
-# API Configuration
+# Example .env.local file  
+# API Configuration  
 NEXT_PUBLIC_API_BASE_URL=https://togetherevents-be.onrender.com/api
 ```
 

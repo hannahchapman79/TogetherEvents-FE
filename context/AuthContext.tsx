@@ -135,31 +135,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
-  
+
         if (
           (error.response?.status === 401 || error.response?.status === 403) &&
           !originalRequest._retry
         ) {
-          originalRequest._retry = true; 
-  
+          originalRequest._retry = true;
+
           const newToken = await refreshAccessToken();
-  
+
           if (newToken) {
-
-
             originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
             originalRequest.withCredentials = true;
-            return axios(originalRequest); 
+            return axios(originalRequest);
           } else {
-            handleAuthFailure(); 
+            handleAuthFailure();
             return Promise.reject(error);
           }
         }
-  
+
         return Promise.reject(error);
-      }
+      },
     );
-  
+
     return () => axios.interceptors.response.eject(interceptor);
   }, [pathname, accessToken]);
 

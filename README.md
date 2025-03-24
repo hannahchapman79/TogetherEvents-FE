@@ -3,6 +3,7 @@
 Hosted version: https://together-events.vercel.app/
 
 ## Table of Contents
+
 - [Description](#description)
   - [Tech Stack](#tech-stack)
   - [Backend Repository](#backend-repository)
@@ -12,7 +13,7 @@ Hosted version: https://together-events.vercel.app/
   - [Environment Variables](#environment-variables)
   - [Running the Application](#running-the-application)
   - [Running Linting & Formatting](#running-linting--formatting)
-  - [Test Account Credentials](#test-account-credentials) 
+  - [Test Account Credentials](#test-account-credentials)
 
 ## Description
 
@@ -74,8 +75,8 @@ It was built using Node.js, JavaScript, Express, MongoDB, Bcrypt for password ha
 3. Create a `.env.local` file in the root of the project and add the following variable:
 
 ```ini
-# Example .env.local file  
-# API Configuration  
+# Example .env.local file
+# API Configuration
 NEXT_PUBLIC_API_BASE_URL=https://togetherevents-be.onrender.com/api
 ```
 
@@ -94,6 +95,7 @@ NEXT_PUBLIC_API_BASE_URL=https://togetherevents-be.onrender.com/api
 
 To explore the app without signing up, use the following test credentials:
 
-**Admin Account:**  
-- Email: hannah@examples.com 
-- Password: HelloWorld0909  
+**Admin Account:**
+
+- Email: hannah@examples.com
+- Password: HelloWorld0909

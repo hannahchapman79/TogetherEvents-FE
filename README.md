@@ -19,7 +19,7 @@ TogetherEvents Frontend is a Next.js and React web application that provides the
 
 ### Tech Stack
 
-**Frontend:** Built using Next.js, TypeScript, Tailwind, and React.
+**Frontend:** Built using Next.js, TypeScript, Tailwind, and React.  
 ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
@@ -28,7 +28,7 @@ TogetherEvents Frontend is a Next.js and React web application that provides the
 ### Backend Repository
 
 The backend for TogetherEvents is available here: [TogetherEvents-BE](https://github.com/hannahchapman79/TogetherEvents-BE)  
-It was built using Node.js, JavaScript, Express, MongoDB, Bcrypt for password hashing and JWT.
+It was built using Node.js, JavaScript, Express, MongoDB, Bcrypt for password hashing and JWT.  
 ![NodeJS](https://img.shields.io/badge/node.js-%23518F4C?style=for-the-badge&logo=node.js&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![Express.js](https://img.shields.io/badge/express.js-%23323330.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)

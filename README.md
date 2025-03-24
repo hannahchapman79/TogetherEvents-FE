@@ -12,6 +12,7 @@ Hosted version: https://together-events.vercel.app/
   - [Environment Variables](#environment-variables)
   - [Running the Application](#running-the-application)
   - [Running Linting & Formatting](#running-linting--formatting)
+  - [Test Account Credentials](#test-account-credentials) 
 
 ## Description
 
@@ -87,3 +88,11 @@ NEXT_PUBLIC_API_BASE_URL=https://togetherevents-be.onrender.com/api
 
 7. Run `npm run lint` to check for linting errors
 8. Run `npm run format` to format code with Prettier
+
+## Test Account Credentials
+
+To explore the app without signing up, use the following test credentials:
+
+**Admin Account:**  
+- Email: hannah@examples.com 
+- Password: HelloWorld0909  

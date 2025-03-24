@@ -29,6 +29,10 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [dateErrors, setDateErrors] = useState({
+    startDate: "",
+    endDate: "",
+  });
 
   const [originalData, setOriginalData] = useState<EventData | null>(null);
 
@@ -45,6 +49,39 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
     maxAttendees: "",
     status: "draft",
   });
+
+  const validateDates = () => {
+    const now = new Date();
+    const errors = {
+      startDate: "",
+      endDate: "",
+    };
+
+    if (formData.startDate) {
+      const startDate = new Date(formData.startDate);
+      if (startDate < now) {
+        errors.startDate = "Start date cannot be in the past";
+      }
+    }
+
+    if (formData.startDate && formData.endDate) {
+      const startDate = new Date(formData.startDate);
+      const endDate = new Date(formData.endDate);
+
+      if (endDate < startDate) {
+        errors.endDate = "End date must be after start date";
+      }
+    }
+
+    setDateErrors(errors);
+    return !errors.startDate && !errors.endDate;
+  };
+
+  useEffect(() => {
+    if (formData.startDate || formData.endDate) {
+      validateDates();
+    }
+  }, [formData.startDate, formData.endDate]);
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -205,6 +242,11 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
+    // Validate dates before submission
+    if (!validateDates()) {
+      return;
+    }
+
     if (!user?.isAdmin) {
       setError("Only admins can update events");
       return;
@@ -286,8 +328,12 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
             name="startDate"
             value={formData.startDate}
             onChange={handleChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            required
+            className={`bg-gray-50 border ${dateErrors.startDate ? "border-red-500" : "border-gray-300"} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
           />
+          {dateErrors.startDate && (
+            <p className="mt-1 text-sm text-red-600">{dateErrors.startDate}</p>
+          )}
         </div>
 
         <div className="mb-5">
@@ -299,8 +345,11 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
             name="endDate"
             value={formData.endDate}
             onChange={handleChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            className={`bg-gray-50 border ${dateErrors.endDate ? "border-red-500" : "border-gray-300"} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
           />
+          {dateErrors.endDate && (
+            <p className="mt-1 text-sm text-red-600">{dateErrors.endDate}</p>
+          )}
         </div>
 
         <div className="mb-5">
@@ -426,8 +475,10 @@ export default function EditEventForm({ eventId }: { eventId: string }) {
 
           <button
             type="submit"
-            disabled={saving}
-            className="text-white bg-accent-3 hover:bg-accent-3-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            disabled={
+              saving || dateErrors.startDate !== "" || dateErrors.endDate !== ""
+            }
+            className="text-white bg-accent-3 hover:bg-accent-3-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:opacity-50"
           >
             {saving ? "Saving..." : "Save Changes"}
           </button>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import axios from "axios";
@@ -25,6 +25,46 @@ export function CreateEventForm() {
   const [formData, setFormData] = useState(initialFormData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [dateErrors, setDateErrors] = useState({
+    startDate: "",
+    endDate: "",
+  });
+
+  const validateDates = () => {
+    const now = new Date();
+    const errors = {
+      startDate: "",
+      endDate: "",
+    };
+
+    // Validate start date is not in the past
+    if (formData.startDate) {
+      const startDate = new Date(formData.startDate);
+      if (startDate < now) {
+        errors.startDate = "Start date cannot be in the past";
+      }
+    }
+
+    // Validate end date is after start date
+    if (formData.startDate && formData.endDate) {
+      const startDate = new Date(formData.startDate);
+      const endDate = new Date(formData.endDate);
+
+      if (endDate < startDate) {
+        errors.endDate = "End date must be after start date";
+      }
+    }
+
+    setDateErrors(errors);
+    return !errors.startDate && !errors.endDate;
+  };
+
+  // Call validation when dates change
+  useEffect(() => {
+    if (formData.startDate || formData.endDate) {
+      validateDates();
+    }
+  }, [formData.startDate, formData.endDate]);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -40,6 +80,11 @@ export function CreateEventForm() {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    // Validate dates before submission
+    if (!validateDates()) {
+      return;
+    }
 
     if (!user?.isAdmin) {
       setError("Only admins can create events");
@@ -85,6 +130,7 @@ export function CreateEventForm() {
       setLoading(false);
     }
   };
+
   return (
     <div className="max-w-2xl mx-auto p-6">
       <h1 className="text-3xl font-bold text-center my-6 mt-12">
@@ -130,8 +176,11 @@ export function CreateEventForm() {
             value={formData.startDate}
             onChange={handleChange}
             required
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            className={`bg-gray-50 border ${dateErrors.startDate ? "border-red-500" : "border-gray-300"} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
           />
+          {dateErrors.startDate && (
+            <p className="mt-1 text-sm text-red-600">{dateErrors.startDate}</p>
+          )}
         </div>
 
         <div className="mb-5">
@@ -143,8 +192,11 @@ export function CreateEventForm() {
             name="endDate"
             value={formData.endDate}
             onChange={handleChange}
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            className={`bg-gray-50 border ${dateErrors.endDate ? "border-red-500" : "border-gray-300"} text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5`}
           />
+          {dateErrors.endDate && (
+            <p className="mt-1 text-sm text-red-600">{dateErrors.endDate}</p>
+          )}
         </div>
 
         <div className="mb-5">
@@ -163,6 +215,22 @@ export function CreateEventForm() {
             <option value="hybrid">Hybrid</option>
           </select>
         </div>
+
+        {(formData.locationType === "physical" ||
+          formData.locationType === "hybrid") && (
+          <div className="mb-5">
+            <label className="block mb-2 text-sm font-medium text-gray-900">
+              Address
+            </label>
+            <input
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            />
+          </div>
+        )}
 
         {(formData.locationType === "online" ||
           formData.locationType === "hybrid") && (
@@ -244,8 +312,10 @@ export function CreateEventForm() {
 
         <button
           type="submit"
-          disabled={loading}
-          className="text-white bg-accent-3 hover:bg-accent-3-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          disabled={
+            loading || dateErrors.startDate !== "" || dateErrors.endDate !== ""
+          }
+          className="text-white bg-accent-3 hover:bg-accent-3-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center disabled:opacity-50"
         >
           {loading ? "Creating..." : "Create Event"}
         </button>

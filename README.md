@@ -4,6 +4,8 @@ Hosted version: https://together-events.vercel.app/
 
 ## Table of Contents
 - [Description](#description)
+  - [Tech Stack](#tech-stack)
+  - [Backend Repository](#backend-repository)
 - [Getting Started](#getting-started)
   - [Dependencies](#dependencies)
   - [Installation](#installation)
@@ -14,6 +16,24 @@ Hosted version: https://together-events.vercel.app/
 ## Description
 
 TogetherEvents Frontend is a Next.js and React web application that provides the user interface for a community events platform. It enables users to browse, sign up for, and manage events while integrating authentication and authorisation features. The UI is built with Tailwind CSS and Hero UI.
+
+### Tech Stack
+
+**Frontend:** Built using Next.js, TypeScript, Tailwind, and React.
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![React](https://img.shields.io/badge/react-%23323330.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+
+### Backend Repository
+
+The backend for TogetherEvents is available here: [TogetherEvents-BE](https://github.com/hannahchapman79/TogetherEvents-BE)  
+It was built using Node.js, JavaScript, Express, MongoDB, Bcrypt for password hashing and JWT.
+![NodeJS](https://img.shields.io/badge/node.js-%23518F4C?style=for-the-badge&logo=node.js&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Express.js](https://img.shields.io/badge/express.js-%23323330.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 
 ## Getting Started
 

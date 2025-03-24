@@ -1,6 +1,15 @@
-# TogetherEvents-FE
+# TogetherEvents
 
 Hosted version: https://together-events.vercel.app/
+
+## Table of Contents
+- [Description](#description)
+- [Getting Started](#getting-started)
+  - [Dependencies](#dependencies)
+  - [Installation](#installation)
+  - [Environment Variables](#environment-variables)
+  - [Running the Application](#running-the-application)
+  - [Running Linting & Formatting](#running-linting--formatting)
 
 ## Description
 

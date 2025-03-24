@@ -74,7 +74,7 @@ It was built using Node.js, JavaScript, Express, MongoDB, Bcrypt for password ha
 
 ```ini
 # API Configuration
-NEXT_PUBLIC_API_BASE_URL=[https://your-api-url.com](https://togetherevents-be.onrender.com/api)
+NEXT_PUBLIC_API_BASE_URL=https://togetherevents-be.onrender.com/api
 ```
 
 ### Running the Application

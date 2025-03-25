@@ -17,7 +17,11 @@ export default function EventsList({ events }: EventsListProps) {
               key={event._id}
               id={event._id}
               name={event.title}
-              startDate={new Date(event.startDate).toLocaleDateString()}
+              startDate={new Date(event.startDate).toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}
               image={event.image}
               category={event.category}
               location={event.location.type}

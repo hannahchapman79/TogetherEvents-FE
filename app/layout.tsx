@@ -26,9 +26,7 @@ export default function RootLayout({
         <AuthProvider>
           <Navbar />
           <main className="flex-1 pt-16">
-            <Suspense fallback={<Loading />}>
-              {children}
-            </Suspense>
+            <Suspense fallback={<Loading />}>{children}</Suspense>
           </main>
           <Footer />
         </AuthProvider>

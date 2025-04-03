@@ -44,15 +44,15 @@ export function LoginForm() {
         <Loader />
       ) : (
         <form
-          className="max-w-sm mx-auto pt-20 px-6 sm:px-0"
+          className="w-full max-w-lg mx-auto mt-20 px-4 sm:px-6 sm:py-8 sm:bg-white sm:shadow-md sm:rounded-lg"
           onSubmit={handleSubmit}
         >
           <div className="mb-5">
-            <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+            <label className="block mb-2 text-sm font-medium text-gray-900">
               Email
             </label>
             <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -64,7 +64,7 @@ export function LoginForm() {
               Password
             </label>
             <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -80,7 +80,7 @@ export function LoginForm() {
             </div>
           )}
           <button
-            className="text-white bg-accent-3 hover:bg-accent-3-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            className="text-white bg-accent-3 hover:bg-accent-3-hover hover:brightness-110 transition-all duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-6 py-3 text-center"
             type="submit"
           >
             Login

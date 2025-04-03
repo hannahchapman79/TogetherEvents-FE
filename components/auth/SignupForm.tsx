@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp } from "@/lib/actions/signup";
 import { useAuth } from "@/context/AuthContext";
+import Loader from "../navigation/Loader";
 import axios from "axios";
 
 export function SignupForm() {
@@ -15,10 +16,12 @@ export function SignupForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     setError(null);
 
     try {
@@ -35,10 +38,16 @@ export function SignupForm() {
       } else {
         setError("An unexpected error occurred. Please try again.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
+        <div>
+          {loading ? (
+            <Loader />
+          ) : (
     <form
       className="max-w-sm mx-auto pt-20 px-6 sm:px-0"
       onSubmit={handleSubmit}
@@ -115,5 +124,7 @@ export function SignupForm() {
         Sign Up
       </button>
     </form>
-  );
-}
+      )}
+      </div>
+    );
+  }

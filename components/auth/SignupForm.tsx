@@ -49,7 +49,7 @@ export function SignupForm() {
         <Loader />
       ) : (
         <form
-          className="max-w-sm mx-auto pt-20 px-6 sm:px-0"
+          className="w-full max-w-lg mx-auto mt-20 px-4 sm:px-6 sm:py-8 sm:bg-white sm:shadow-md sm:rounded-lg"
           onSubmit={handleSubmit}
         >
           <div className="mb-5">
@@ -57,7 +57,7 @@ export function SignupForm() {
               Name
             </label>
             <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -68,7 +68,7 @@ export function SignupForm() {
               Username
             </label>
             <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -79,7 +79,7 @@ export function SignupForm() {
               Email
             </label>
             <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -91,7 +91,7 @@ export function SignupForm() {
               Password
             </label>
             <input
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-3"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -101,7 +101,7 @@ export function SignupForm() {
           <div className="flex items-start mb-5">
             <div className="flex items-center h-5">
               <input
-                className="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300"
+                className="w-5 h-5 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300"
                 type="checkbox"
                 checked={isAdmin}
                 onChange={(e) => setIsAdmin(e.target.checked)}
@@ -120,7 +120,7 @@ export function SignupForm() {
             </div>
           )}
           <button
-            className="text-white bg-accent-3 hover:bg-accent-3-hover focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+            className="text-white bg-accent-3 hover:bg-accent-3-hover hover:brightness-110 transition-all duration-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-base w-full sm:w-auto px-6 py-3 text-center"
             type="submit"
           >
             Sign Up

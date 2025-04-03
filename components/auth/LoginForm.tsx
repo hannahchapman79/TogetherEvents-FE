@@ -47,6 +47,7 @@ export function LoginForm() {
           className="w-full max-w-lg mx-auto mt-20 px-4 sm:px-6 sm:py-8 sm:bg-white sm:shadow-md sm:rounded-lg"
           onSubmit={handleSubmit}
         >
+          <h1 className="text-xl font-medium mb-8">Login!</h1>
           <div className="mb-5">
             <label className="block mb-2 text-sm font-medium text-gray-900">
               Email
